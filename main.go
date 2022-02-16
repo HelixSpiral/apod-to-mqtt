@@ -30,7 +30,8 @@ func main() {
 
 	// Query the api for the picture of the day
 	resp, err := Apod.Query(&apod.ApodQueryInput{
-		Date: time.Now().In(locEST),
+		Date:   time.Now().In(locEST),
+		Thumbs: true,
 	})
 	if err != nil {
 		panic(err)
