@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apod
+data:
+  MQTT_BROKER: <tcp://MQTT Broker>
+  MQTT_TOPIC: <MQTT Topic>

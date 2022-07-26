@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: apod-to-mqtt-cronjob
+spec:
+  schedule: "0 16 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 600
+      template:
+        spec:
+          containers:
+          - name: apod
+            image: ghcr.io/helixspiral/apodtomqtt:latest
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: MQTT_CLIENT_ID
+              value: apodPublisher
+            - name: MQTT_BROKER
+              valueFrom:
+                configMapKeyRef:
+                  name: apod
+                  key: MQTT_BROKER
+            - name: MQTT_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: apod
+                  key: MQTT_TOPIC
+            - name: APOD_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: apod
+                  key: APOD_API_KEY
+          restartPolicy: OnFailure
+          imagePullSecrets:
+          - name: ghcr-credentials
