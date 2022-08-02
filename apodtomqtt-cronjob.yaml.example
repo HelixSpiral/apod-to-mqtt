@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
           - name: apod
-            image: ghcr.io/helixspiral/apodtomqtt:latest
+            image: ghcr.io/helixspiral/apod-to-mqtt:latest
             imagePullPolicy: IfNotPresent
             env:
             - name: MQTT_CLIENT_ID
