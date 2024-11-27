@@ -41,6 +41,7 @@ func main() {
 	mqttClientId := os.Getenv("MQTT_CLIENT_ID")
 	mqttTopic := os.Getenv("MQTT_TOPIC")
 	apodApiKey := os.Getenv("APOD_API_KEY")
+	apodApiDomain := os.Getenv("APOD_API_DOMAIN")
 
 	slog.Info("Starting the Astronomy Picture of the Day to MQTT service", "mqttBroker", mqttBroker, "mqttClientId", mqttClientId, "mqttTopic", mqttTopic)
 
@@ -56,7 +57,11 @@ func main() {
 	//mqtt.ERROR = log.New(os.Stdout, "", 0)
 
 	// Setup the Apod service
-	Apod := apod.NewAPOD(apodApiKey)
+	apodInput := apod.NewAPODInput{
+		APIKey:     apodApiKey,
+		APODDomain: apodApiDomain,
+	}
+	Apod := apod.NewAPOD(&apodInput)
 
 	// Query the api for the picture of the day
 	resp, err := Apod.Query(&apod.ApodQueryInput{
