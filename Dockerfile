@@ -1,4 +1,4 @@
-FROM golang:alpine as Build
+FROM golang:alpine AS build
 
 # We need tzdata for the timezone information and the
 # ca-certificates for ssl cert verification
@@ -16,8 +16,8 @@ FROM scratch
 
 WORKDIR /app
 
-COPY --from=Build /usr/share/zoneinfo /usr/share/zoneinfo
-COPY --from=Build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=Build /app/main .
+COPY --from=build /usr/share/zoneinfo /usr/share/zoneinfo
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=build /app/main .
 
 CMD [ "/app/main" ]
