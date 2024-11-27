@@ -11,6 +11,7 @@ The variables used are:
 * MQTT_CLIENT_ID - The client ID to use when connecting to your MQTT server
 * MQTT_TOPIC - The MQTT topic to publish to
 * APOD_API_KEY - The API key to use for the NASA APOD API
+* APOD_API_DOMAIN - The domain of the API to use, defaults to the NASA provided API
 
 Build with Docker
 ---
